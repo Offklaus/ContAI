@@ -12,7 +12,7 @@ app.use('/transactions', transactionRoutes);
 
 AppDataSource.initialize().then(() => {
   console.log('Connected to the database');
-  app.listen(3001, () => {
-    console.log('Server running on http://localhost:3001');
+  app.listen(3004, () => {
+    console.log('Server running on http://localhost:3004');
   });
 }).catch((error) => console.error(error));
