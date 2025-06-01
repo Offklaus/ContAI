@@ -1,9 +1,12 @@
 import React from 'react';
 import { Transaction } from '../types/Transaction';
 import './style.css';
+import { FaTrash } from 'react-icons/fa';
 
 type Props = {
   transactions: Transaction[];
+
+  onDelete: (transaction: Transaction) => void;
 };
 
 const formatCurrency = (value: number) =>
@@ -39,7 +42,7 @@ const groupByMonth = (transactions: Transaction[]): Record<string, Transaction[]
   return groups;
 };
 
-const TransactionTable = ({ transactions }: Props) => {
+const TransactionTable = ({ transactions, onDelete }: Props) => {
   const grouped = groupByMonth(transactions); //
 
   console.log('Props recebidas:', transactions);
@@ -57,19 +60,21 @@ const TransactionTable = ({ transactions }: Props) => {
 
     
         return (
+        
           <div key={index}>
             <div className="yearsH1">
               <div className="yrs">
                 <h3>{monthYear}</h3>
               </div>
             </div>
-            <table border={1}>
+            <table className='my-table' border={1}>
               <thead>
                 <tr>
                   <th>Data</th>
                   <th>Descrição</th>
                   <th>Valor</th>
                   <th>Tipo</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,18 +84,25 @@ const TransactionTable = ({ transactions }: Props) => {
                     <td>{t.description}</td>
                     <td>{formatCurrency(t.amount)}</td>
                     <td>{t.type}</td>
+                    <td className="btns">
+                      <button className="btn-ex "onClick={() => onDelete(t)}><FaTrash size={20} color="black" /></button>
+                    </td>
                   </tr>
                 ))}
-                <tr className='total-media'>
-                  <td colSpan={2}></td>
-                  <td><strong>{formatCurrency(totalDebit)}</strong></td>
-                  <td><strong>débitos</strong></td>
+
+                <div className='total'>
+
+                  <tr>
+                    <td colSpan={2}><strong>Totais do mês:</strong></td>
+                    <td><strong>{formatCurrency(totalCredit)}</strong></td>
+                    <td><strong>Créditos</strong></td>
+                  </tr>
+                  <tr className='total-media'>
+                    <td colSpan={2}></td>
+                    <td><strong>{formatCurrency(totalDebit)}</strong></td>
+                    <td><strong>Cébitos</strong></td>
                 </tr>
-                <tr>
-                  <td colSpan={2}><strong>Totais do mês:</strong></td>
-                  <td><strong>{formatCurrency(totalCredit)}</strong></td>
-                  <td><strong>créditos</strong></td>
-                </tr>
+                </div>
               </tbody>
             </table>
           </div>

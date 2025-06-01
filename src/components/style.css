@@ -5,10 +5,21 @@ table {
   margin-top: 20px;
 }
 
+tbody {
+  border-radius: 80x;
+}
+table {
+  border-radius: 20px;
+}
+
+
+
 th, td {
-  padding: 12px;
+  padding: 8px;
   border: 1px solid #ccc;
   text-align: left;
+  border-left: none;
+  border-right: none;
 }
 
 thead {
@@ -34,11 +45,64 @@ tr:nth-child(even) {
   background-color: black;
   border-radius: 15px;
 }
-
-
-.total-media tr{
-  background-color: blue;
+.total {
+  display: inline;
+  justify-content: center;
   margin-top: 80px;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.total td {
+  border: none;
+}
+
+.total-media{
+  background-color: blue; 
+  margin-top: 20px;
+}
+
+.total-media td {
+  padding-top: 12px;
+}
+
+.btns {
+  width: 40px;
+}
+
+.btn-ex {
+  color: white;
+  width: 120px;
+  border: none;
+  border-radius: 10px;
 }
 
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.my-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.my-table th:first-child {
+  border-top-left-radius: 12px;
+}
+.my-table th:last-child {
+  border-top-right-radius: 12px;
+}
+.my-table tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.my-table tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}

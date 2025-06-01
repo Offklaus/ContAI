@@ -58,6 +58,10 @@ const Home = () => {
     return matchType && matchSearch;
   });
 
+  const deleteTransaction = (transaction: Transaction) => {
+    setTransactions((prev) => prev.filter((t) => t !== transaction));
+  };
+
   console.log('Transictions para tabele', transactions);
   return (
     <div className ="container">
@@ -68,7 +72,10 @@ const Home = () => {
         <div className="formsSearch">
           <TransactionForm onAdd={addTransaction} />
         </div>
-      <TransactionTable transactions={transactions} />
+      <TransactionTable 
+        transactions={transactions}
+        onDelete={deleteTransaction}
+      />
       </div>
     </div>
   );

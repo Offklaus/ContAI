@@ -19,6 +19,8 @@ const TransactionForm = ({ onAdd }: Props) => {
     type: 'credit'
   });
 
+  const [error, setError] = useState('');
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -26,15 +28,26 @@ const TransactionForm = ({ onAdd }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { date, description, amount, type } = form;
-    if (!date || !description || !amount || !['credit', 'debit'].includes(type)) return;
 
+    
+    if (!date || !description || !amount || !['credit', 'debit'].includes(type)) return;
+    
     const amountNumber = parseFloat(amount)
+    //declarando a variável parsedAmount
+    const parsedAmount = parseFloat(amount);
+    
+    // Verifica se o valor é um número positivo
+    if (isNaN(parsedAmount) || parsedAmount <=0) {
+      alert('O valor deve ser um número positivo.');
+      return;
+    }
 
     const amountFormatted = new Intl.NumberFormat('pt-BR',  {
       style: 'currency',
       currency: 'BRL',
     }).format(amountNumber);
 
+    setError('');
     onAdd({ date, description, amount: parseFloat(amount), type });
     setForm({ date: '', description: '', amount: '', type: 'credit' });
   };
