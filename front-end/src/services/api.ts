@@ -1,6 +1,6 @@
 //conectando o backend com o frontend
 
-const API_URL ='http://localhost:3004/transactions';
+const API_URL ='http://localhost:3003/transactions';
 
 // função para buscar as transações do backend
 export async function fetchTransactions() {
@@ -9,7 +9,7 @@ export async function fetchTransactions() {
     return res.json();
 }
 // função para criar uma nova transação no backend
-export async function createTransation(data:{
+export async function createTransaction(data:{
     date: string;
     description: string;
     amount: number;
@@ -19,8 +19,7 @@ export async function createTransation(data:{
     const res = await fetch(API_URL, { // método POST
         method: 'POST',
         // enviando os dados no corpo da requisição
-        headers: {
-            'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data),
     });
     // verificando se a resposta foi bem sucedida
@@ -32,7 +31,7 @@ export async function createTransation(data:{
 // usando o método DELETE
 // passando o ID da transação na URL
 export async function deleteTransaction(id: number) {
-    await fetch('http://localhost:3004/transactions/${id}', {
+    await fetch('http://localhost:3003/transactions/${id}', {
         method: 'DELETE',
     })
 }

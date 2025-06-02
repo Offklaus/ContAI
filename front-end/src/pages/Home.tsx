@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import TransactionForm from '../components/TransactionForm';
 import TransactionTable from '../components/TransactionTable';
 import { Transaction } from '../types/Transaction';
-import { fetchTransactions, createTransation} from '../services/api';
+import { fetchTransactions, createTransaction} from '../services/api';
 
 import './home.css';
 
@@ -30,7 +30,7 @@ const Home = () => {
 
 
   const addTransaction = async (transaction: Transaction) => {
-    const newTx = await createTransation(transaction);
+    const newTx = await createTransaction(transaction);
     setTransactions((prev) => [...prev, newTx]);
   };
 
