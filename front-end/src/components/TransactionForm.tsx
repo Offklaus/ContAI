@@ -20,7 +20,6 @@ const TransactionForm = ({ onAdd }: Props) => {
   });
 
   const [error, setError] = useState('');
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -28,13 +27,15 @@ const TransactionForm = ({ onAdd }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { date, description, amount, type } = form;
-
-    
     if (!date || !description || !amount || !['credit', 'debit'].includes(type)) return;
-    
     const amountNumber = parseFloat(amount)
-    //declarando a variável parsedAmount
     const parsedAmount = parseFloat(amount);
+
+    // Verifica se a data é válida/
+    if(!isValidDate(date)) {
+      setError('A data deve estar no formato DD/MM/AAAA e ser válida.');
+      return;
+    }
     
     // Verifica se o valor é um número positivo
     if (isNaN(parsedAmount) || parsedAmount <=0) {
@@ -51,6 +52,21 @@ const TransactionForm = ({ onAdd }: Props) => {
     onAdd({ date, description, amount: parseFloat(amount), type });
     setForm({ date: '', description: '', amount: '', type: 'credit' });
   };
+
+  // Função para validar a data no formato DD/MM/YYYY
+  function isValidDate(date: string): boolean {
+    // Verifica se a data está no formato DD/MM/YYYY
+    const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!regex.test(date)) return false;
+    //valida se é uma data real
+    const[day, month, year] = date.split('/').map(Number);
+    const dateObj = new Date(year, month - 1, day);
+    return (
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() === month - 1 &&
+      dateObj.getDate() === day
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>
